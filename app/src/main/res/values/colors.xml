@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ═══════════════════════════════════════════
+         رنگ‌های اپ — برای تغییر رنگ‌بندی، فقط اینجا را عوض کنید
+         ═══════════════════════════════════════════ -->
+    <color name="bg_dark">#0C1220</color>      <!-- پس‌زمینه تیره سرمه‌ای -->
+    <color name="bg_card">#1A2338</color>      <!-- پس‌زمینه کارت/رفرش -->
+    <color name="gold">#FFB703</color>         <!-- طلایی برند -->
+    <color name="text_light">#F5F7FA</color>   <!-- متن روشن -->
+    <color name="ic_launcher_background">#0E1628</color> <!-- پس‌زمینه آیکون -->
+</resources>
