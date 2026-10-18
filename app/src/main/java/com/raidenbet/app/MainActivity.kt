@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         const val SITE_URL = "https://raidenbet.com"
 
         // مدت نمایش صفحه شروع (بر حسب میلی‌ثانیه) — ۲۰۰۰ یعنی ۲ ثانیه
-        const val SPLASH_DURATION = 2000L
+        const val SPLASH_DURATION = 3000L
     }
 
     private var webView: WebView? = null
