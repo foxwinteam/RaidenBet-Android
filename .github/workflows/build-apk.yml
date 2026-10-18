@@ -1,0 +1,38 @@
+name: Build APK
+
+# این فایل به GitHub می‌گوید: هر وقت فایل‌ها آپلود شدند، خودکار APK بساز
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: {}   # اجازه اجرای دستی از تب Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: دریافت کد پروژه
+        uses: actions/checkout@v4
+
+      - name: نصب جاوا ۱۷
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: نصب اندروید SDK
+        uses: android-actions/setup-android@v3
+
+      - name: نصب Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.2'
+
+      - name: ساخت فایل APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: آپلود APK به بخش Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: RaidenBet-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 90
