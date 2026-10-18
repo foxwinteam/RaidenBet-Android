@@ -1,38 +1,43 @@
+
 name: Build APK
 
-# این فایل به GitHub می‌گوید: هر وقت فایل‌ها آپلود شدند، خودکار APK بساز
 on:
   push:
-    branches: [ main, master ]
-  workflow_dispatch: {}   # اجازه اجرای دستی از تب Actions
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+
     steps:
-      - name: دریافت کد پروژه
+      - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: نصب جاوا ۱۷
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
 
-      - name: نصب اندروید SDK
-        uses: android-actions/setup-android@v3
+      - name: Check Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls "$ANDROID_HOME/platforms"
+          ls "$ANDROID_HOME/build-tools"
 
-      - name: نصب Gradle
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.2'
 
-      - name: ساخت فایل APK
-        run: gradle assembleDebug --no-daemon
+      - name: Build Debug APK
+        run: gradle assembleDebug --no-daemon --stacktrace
 
-      - name: آپلود APK به بخش Artifacts
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: RaidenBet-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
           retention-days: 90
